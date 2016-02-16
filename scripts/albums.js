@@ -27,6 +27,21 @@ var albumMarconi = {
     ]
 };
 
+var albumSteven = {
+    name: 'The Rotation',
+    artist: 'Steven',
+    label: 'Me Records',
+    year: '1999',
+    albumArtUrl: 'assets/images/album_covers/03.png',
+    songs: [
+        { name: 'Steven', length: '4:59' },
+        { name: 'Rotation', length: '5:14' },
+        { name: 'Elevation', length: '2:01' },
+        { name: 'Sensation', length: '3:31' },
+        { name: 'Inflation', length: '2:45' }
+    ]
+};
+
 var createSongRow = function (songNumber, songName, songLength) {
     var template =
         '<tr class="album-view-song-item">'
@@ -59,4 +74,11 @@ var setCurrentAlbum = function (album) {
 
 window.onload = function() {
     setCurrentAlbum(albumPicasso);
+    var albumImage = document.getElementsByClassName('album-cover-art')[0];
+    var albumsArray = [albumMarconi, albumSteven, albumPicasso], counter = 0;
+    albumImage.addEventListener('click', function() {
+        setCurrentAlbum(albumsArray[counter % 3]);
+        counter += 1;
+        
+    });
 };
