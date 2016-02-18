@@ -38,17 +38,18 @@ var createSongRow = function (songNumber, songName, songLength) {
     var $row = $(template);
     
     var clickHandler = function() {
-        var songItem = $(this).find('.song-item-number')
+        var $songItem = $(this).find('.song-item-number'),
+            songNumber = $songItem.attr('data-song-number');
         if (currentlyPlayingSong === null) {
-            $(songItem).html(pauseButtonTemplate);
-            currentlyPlayingSong = $(songItem).attr('data-song-number');
-        } else if (currentlyPlayingSong === $(songItem).attr('data-song-number')) {
-            $(songItem).html(playButtonTemplate);
+            $songItem.html(pauseButtonTemplate);
+            currentlyPlayingSong = songNumber;
+        } else if (currentlyPlayingSong === songNumber) {
+            $songItem.html(playButtonTemplate);
             currentlyPlayingSong = null;
-        } else if (currentlyPlayingSong !== $(songItem).attr('data-song-number')) {
+        } else if (currentlyPlayingSong !== songNumber) {
             $('[data-song-number="' + currentlyPlayingSong + '"]').html(currentlyPlayingSong);
-            $(songItem).html(pauseButtonTemplate);
-            currentlyPlayingSong = $(songItem).attr('data-song-number');
+            $songItem.html(pauseButtonTemplate);
+            currentlyPlayingSong = songNumber;
         }
     };
     
@@ -67,7 +68,7 @@ var createSongRow = function (songNumber, songName, songLength) {
         }
     };
     
-//    $row.find('.song-item-number').click(clickHandler);
+
     $row.click(clickHandler);
     $row.hover(onHover, offHover);
     return $row;
